@@ -1,0 +1,65 @@
+import time
+import subprocess
+import platform
+import os
+
+def open_notepad():
+    system = platform.system()
+    if system == "Windows": 
+        subprocess.Popen("notepad.exe")
+        
+    time.sleep(3)
+    os.system("taskkill /f /im notepad.exe")
+    
+def open_set():
+    system = platform.system()
+    if system == "Windows": 
+        subprocess.Popen("SystemSettings.exe")
+    time.sleep(6)
+    os.system("taskkill /f /im SystemSettings.exe")
+    
+def open_calculator():
+    system = platform.system()
+    if system == "Windows": 
+        subprocess.Popen("calc.exe")
+        
+    time.sleep(5)
+    os.system("taskkill /f /im calc.exe")
+    
+   
+    
+
+
+
+
+#classe que cria as tarefas do S.O
+class Task:
+    def __init__(self, name, duration):
+        self.name = name
+        self.duration = duration
+        
+#classe que simula S.O monoprogramado
+class MonoProgramingSimulator: 
+    def __init__(self):
+        self.task_queue = [] #cria uma fila de tarefas vazia 
+        
+    def add_task(self, task): #adiciona tarefa na fila
+        self.task_queue.append(task)
+    
+    def run(self):
+        while self.task_queue:
+            current_task = self.task_queue.pop(0) #executa a tarefa que estar em prioridade e retira da fila
+            print(f"Executando a tarefa: {current_task.name}")
+            time.sleep(current_task.duration)
+            print(f"{current_task.name} concluída!")
+            
+simulator = MonoProgramingSimulator()
+simulator.add_task(Task("Bloco de Notas", 1))
+open_notepad()
+simulator.add_task(Task("Cconfiguração", 1))
+open_set()
+simulator.add_task(Task("Calculadora", 1))
+open_calculator()
+
+
+simulator.run()
